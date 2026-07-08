@@ -69,7 +69,8 @@ export async function addPost(
     });
 
     return { success: true, errors: {}, values: initialAddPostState.values };
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error('addPost failed', error);
     return {
       success: false,
       errors: { form: 'Something went wrong saving your post. Please try again.' },
