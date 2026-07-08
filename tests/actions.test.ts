@@ -77,6 +77,21 @@ describe('addPost', () => {
     );
   });
 
+  it('returns an author avatar error and does not upload or save when avatar is invalid', async () => {
+    const formData = buildFormData();
+    formData.set(
+      'authorAvatar',
+      new File(['fake-bytes'], 'avatar.txt', { type: 'text/plain' })
+    );
+
+    const result = await addPost(initialAddPostState, formData);
+
+    expect(result.success).toBe(false);
+    expect(result.errors.authorAvatar).toBe('Image must be a PNG, JPEG, WEBP, or GIF file.');
+    expect(putMock).not.toHaveBeenCalled();
+    expect(createPostMock).not.toHaveBeenCalled();
+  });
+
   it('returns a form-level error when saving fails', async () => {
     putMock.mockResolvedValue({ url: 'https://blob.example.com/posts/photo.png' });
     createPostMock.mockRejectedValue(new Error('db down'));

@@ -1,5 +1,5 @@
 export type PostFieldErrors = Partial<
-  Record<'title' | 'description' | 'category' | 'authorName' | 'image' | 'form', string>
+  Record<'title' | 'description' | 'category' | 'authorName' | 'image' | 'authorAvatar' | 'form', string>
 >;
 
 export type PostFieldsInput = {

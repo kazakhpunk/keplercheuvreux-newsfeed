@@ -27,6 +27,10 @@ export async function addPost(
 
   const avatarEntry = formData.get('authorAvatar');
   const avatar = avatarEntry instanceof File && avatarEntry.size > 0 ? avatarEntry : null;
+  if (avatar) {
+    const avatarError = validateImageFile(avatar);
+    if (avatarError) fieldErrors.authorAvatar = avatarError;
+  }
 
   if (Object.keys(fieldErrors).length > 0) {
     return { success: false, errors: fieldErrors, values };
