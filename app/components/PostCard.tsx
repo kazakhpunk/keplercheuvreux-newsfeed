@@ -12,7 +12,7 @@ export function PostCard({ post }: { post: Post }) {
   return (
     <article className="post-card">
       <div className="post-card-image-wrap">
-        <img src={post.imageUrl} alt="" className="post-card-image" />
+        <img src={post.imageUrl} alt={post.title} className="post-card-image" />
         <span className="post-card-tag">{post.category}</span>
       </div>
       <h2 className="post-card-title">{post.title}</h2>
