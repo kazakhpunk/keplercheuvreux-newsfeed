@@ -3,23 +3,9 @@
 import { put } from '@vercel/blob';
 import { createPost } from '@/lib/posts';
 import { validatePostFields, validateImageFile } from '@/lib/validation';
+import { initialAddPostState, type AddPostState } from './state';
 
-export type AddPostState = {
-  success: boolean;
-  errors: Record<string, string>;
-  values: {
-    title: string;
-    description: string;
-    category: string;
-    authorName: string;
-  };
-};
-
-export const initialAddPostState: AddPostState = {
-  success: false,
-  errors: {},
-  values: { title: '', description: '', category: '', authorName: '' },
-};
+export type { AddPostState };
 
 export async function addPost(
   _prevState: AddPostState,
