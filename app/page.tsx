@@ -7,7 +7,8 @@ export default async function HomePage() {
 
   try {
     posts = await getPosts();
-  } catch (error) {
+  } catch (error: unknown) {
+    console.error('Failed to load posts for feed', error);
     loadError = true;
   }
 
