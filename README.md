@@ -25,13 +25,20 @@ A dark-navy, slider-style news feed built with Next.js, Vercel Postgres, and Ver
 ## Provisioning on Vercel
 
 1. Create a new Vercel project from this repository.
-2. In the project's Storage tab, create a **Postgres** database and a **Blob** store; Vercel adds `POSTGRES_URL` and `BLOB_READ_WRITE_TOKEN` to the project's environment variables automatically.
-3. Pull those variables locally so `npm run db:init` can use them:
+2. Provision storage for the project:
+   - **Postgres**: Vercel Postgres is now provisioned as a Neon-backed database through the **Vercel Marketplace** rather than the old Storage tab. From the project, go to the **Storage** tab, select **Marketplace Database Providers**, and add a **Neon** (Postgres) integration. The `@vercel/postgres` SDK and `POSTGRES_URL` env var still work the same way against the Neon-backed database — only the provisioning UI path changed.
+   - **Blob**: In the project's Storage tab, create a **Blob** store.
+   - Either flow adds `POSTGRES_URL` and `BLOB_READ_WRITE_TOKEN` to the project's environment variables automatically.
+3. Install the Vercel CLI and link this local checkout to the project (skip if already linked):
+   ```bash
+   npm i -g vercel && vercel link
+   ```
+4. Pull those variables locally so `npm run db:init` can use them:
    ```bash
    vercel env pull .env.local
    ```
-4. Run `npm run db:init` once to create the `posts` table in the deployed database.
-5. Deploy:
+5. Run `npm run db:init` once to create the `posts` table in the deployed database.
+6. Deploy:
    ```bash
    vercel deploy --prod
    ```
