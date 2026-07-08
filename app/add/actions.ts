@@ -39,12 +39,14 @@ export async function addPost(
   try {
     const uploadedImage = await put(`posts/${Date.now()}-${image!.name}`, image!, {
       access: 'public',
+      addRandomSuffix: true,
     });
 
     let avatarUrl: string | null = null;
     if (avatar) {
       const uploadedAvatar = await put(`avatars/${Date.now()}-${avatar.name}`, avatar, {
         access: 'public',
+        addRandomSuffix: true,
       });
       avatarUrl = uploadedAvatar.url;
     }
