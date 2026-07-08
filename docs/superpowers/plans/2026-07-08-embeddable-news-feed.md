@@ -6,7 +6,7 @@
 
 **Architecture:** Single Next.js (App Router) project deployed on Vercel. Vercel Postgres stores post rows; Vercel Blob stores uploaded images/avatars. `/` renders the public slider feed (embed target); `/add` is an open (no-auth) form that uploads an image and inserts a post via a server action.
 
-**Tech Stack:** Next.js 14 (App Router, TypeScript), React 18, `@vercel/postgres`, `@vercel/blob`, Vitest for unit/integration tests.
+**Tech Stack:** Next.js 15 (App Router, TypeScript), React 19, `@vercel/postgres`, `@vercel/blob`, Vitest for unit/integration tests. (Amended from the original Next.js 14/React 18 choice: 14.2.x has no patched release for several high-severity CVEs — only 15.5.x+ fixes them — so the project was upgraded to Next 15 before Task 1 completed. This changes two things downstream: `react-dom`'s `useFormState` becomes `useActionState` from `react` in Task 6, and dependency versions in Task 1 target Next 15/React 19.)
 
 ## Global Constraints
 
@@ -61,19 +61,21 @@
   "dependencies": {
     "@vercel/blob": "^0.27.0",
     "@vercel/postgres": "^0.10.0",
-    "next": "14.2.15",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "next": "^15.5.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.9",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "typescript": "^5.5.3",
     "vitest": "^2.1.1"
   }
 }
 ```
+
+(Amended: `next`/`react`/`react-dom` versions updated from the plan's original Next 14/React 18 pins — see the Tech Stack note above. Use the latest published patch within `next@^15.5.0` at implementation time; confirm with `npm view next@15 version` and re-run `npm audit` to confirm no unpatched high/critical findings remain in `next` itself.)
 
 - [ ] **Step 2: Create `tsconfig.json`**
 
@@ -1115,13 +1117,15 @@ git commit -m "feat: add post-creation server action"
 - Consumes: `addPost`, `initialAddPostState`, `AddPostState` from `./actions` (Task 5).
 - Produces: the `/add` route. No new exports consumed by other tasks.
 
+Note: this project is on React 19 (see the Tech Stack amendment at the top of this plan), so the form-state hook is `useActionState` imported from `react` — not `useFormState` from `react-dom`. `useFormStatus` is unaffected and still comes from `react-dom`.
+
 - [ ] **Step 1: Create `app/add/page.tsx`**
 
 ```tsx
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useEffect, useRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { addPost, initialAddPostState } from './actions';
 
@@ -1135,7 +1139,7 @@ function SubmitButton() {
 }
 
 export default function AddPostPage() {
-  const [state, formAction] = useFormState(addPost, initialAddPostState);
+  const [state, formAction] = useActionState(addPost, initialAddPostState);
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
 
