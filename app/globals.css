@@ -8,3 +8,137 @@ body {
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
+
+.feed-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a2540;
+  color: #ffffff;
+  padding: 24px;
+}
+
+.feed-message {
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
+
+.feed-slider {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.post-card {
+  width: 100%;
+  background: #0a2540;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.post-card-image-wrap {
+  position: relative;
+}
+
+.post-card-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.post-card-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(10, 37, 64, 0.85);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.post-card-title {
+  margin: 16px 16px 8px;
+  font-size: 1.25rem;
+}
+
+.post-card-description {
+  margin: 0 16px 16px;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.post-card-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 16px 16px;
+}
+
+.post-card-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-card-author-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.post-card-date {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.feed-arrow {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.feed-arrow-prev {
+  left: -8px;
+}
+
+.feed-arrow-next {
+  right: -8px;
+}
+
+.feed-dots {
+  display: flex;
+  gap: 8px;
+}
+
+.feed-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  padding: 0;
+}
+
+.feed-dot-active {
+  background: #ffffff;
+}
