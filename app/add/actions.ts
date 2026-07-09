@@ -1,6 +1,7 @@
 'use server';
 
 import { put } from '@vercel/blob';
+import { revalidatePath } from 'next/cache';
 import { createPost } from '@/lib/posts';
 import { validatePostFields, validateImageFile } from '@/lib/validation';
 import { initialAddPostState, type AddPostState } from './state';
@@ -59,6 +60,8 @@ export async function addPost(
       authorName: values.authorName,
       authorAvatarUrl: avatarUrl,
     });
+
+    revalidatePath('/');
 
     return { success: true, errors: {}, values: initialAddPostState.values };
   } catch (error: unknown) {

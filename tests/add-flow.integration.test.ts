@@ -7,6 +7,10 @@ vi.mock('@vercel/blob', () => ({
   put: (...args: unknown[]) => putMock(...args),
 }));
 
+vi.mock('next/cache', () => ({
+  revalidatePath: vi.fn(),
+}));
+
 let posts: Post[] = [];
 let nextId = 1;
 

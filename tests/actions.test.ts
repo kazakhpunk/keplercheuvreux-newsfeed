@@ -11,6 +11,10 @@ vi.mock('@/lib/posts', () => ({
   createPost: (...args: unknown[]) => createPostMock(...args),
 }));
 
+vi.mock('next/cache', () => ({
+  revalidatePath: vi.fn(),
+}));
+
 import { addPost } from '@/app/add/actions';
 import { initialAddPostState } from '@/app/add/state';
 
