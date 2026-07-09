@@ -1,16 +1,33 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { Post } from '@/lib/posts';
 import { nextIndex, prevIndex, clampIndex } from '@/lib/slider';
+import { AddPostModal } from './AddPostModal';
 import { PostCard } from './PostCard';
 
 export function Feed({ posts }: { posts: Post[] }) {
   const [index, setIndex] = useState(() => clampIndex(0, posts.length));
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const router = useRouter();
   const current = posts[index];
+
+  function handleAddSuccess() {
+    setIsAddOpen(false);
+    router.refresh();
+  }
 
   return (
     <div className="feed-slider">
+      <button
+        type="button"
+        className="feed-add-button"
+        onClick={() => setIsAddOpen(true)}
+      >
+        + Add post
+      </button>
+
       <button
         type="button"
         aria-label="Previous post"
@@ -42,6 +59,10 @@ export function Feed({ posts }: { posts: Post[] }) {
           />
         ))}
       </div>
+
+      {isAddOpen && (
+        <AddPostModal onClose={handleAddSuccess} />
+      )}
     </div>
   );
 }
