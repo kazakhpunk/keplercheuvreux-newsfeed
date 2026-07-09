@@ -34,6 +34,22 @@ body {
   gap: 16px;
 }
 
+.feed-viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.feed-track {
+  display: flex;
+  transition: transform 0.45s ease-in-out;
+}
+
+.feed-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
 .post-card {
   width: 100%;
   background: #0a2540;

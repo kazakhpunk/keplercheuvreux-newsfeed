@@ -11,7 +11,6 @@ export function Feed({ posts }: { posts: Post[] }) {
   const [index, setIndex] = useState(() => clampIndex(0, posts.length));
   const [isAddOpen, setIsAddOpen] = useState(false);
   const router = useRouter();
-  const current = posts[index];
 
   function handleAddSuccess() {
     setIsAddOpen(false);
@@ -37,7 +36,15 @@ export function Feed({ posts }: { posts: Post[] }) {
         ‹
       </button>
 
-      <PostCard post={current} />
+      <div className="feed-viewport">
+        <div className="feed-track" style={{ transform: `translateX(-${index * 100}%)` }}>
+          {posts.map((post) => (
+            <div className="feed-slide" key={post.id}>
+              <PostCard post={post} />
+            </div>
+          ))}
+        </div>
+      </div>
 
       <button
         type="button"
