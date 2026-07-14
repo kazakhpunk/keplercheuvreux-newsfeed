@@ -297,6 +297,8 @@ body {
   padding: 24px;
   z-index: 100;
   background: rgba(0, 51, 102, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .post-modal-dialog {
