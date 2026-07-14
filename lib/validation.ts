@@ -1,3 +1,5 @@
+import { STOCK_IMAGES } from './stockImages';
+
 export type PostFieldErrors = Partial<
   Record<'title' | 'description' | 'category' | 'authorName' | 'image' | 'authorAvatar' | 'form', string>
 >;
@@ -28,4 +30,8 @@ export function validateImageFile(file: { type: string; size: number } | null): 
   }
   if (file.size > MAX_IMAGE_BYTES) return 'Image must be smaller than 5MB.';
   return null;
+}
+
+export function isKnownStockImageUrl(url: string): boolean {
+  return STOCK_IMAGES.some((image) => image.url === url);
 }

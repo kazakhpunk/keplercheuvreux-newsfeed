@@ -1,9 +1,10 @@
 'use client';
 
-import { useActionState, useEffect, useRef } from 'react';
+import { useActionState, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { addPost } from './actions';
 import { initialAddPostState } from './state';
+import { STOCK_IMAGES } from '@/lib/stockImages';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -17,13 +18,27 @@ function SubmitButton() {
 export function AddPostForm({ onSuccess }: { onSuccess: () => void }) {
   const [state, formAction] = useActionState(addPost, initialAddPostState);
   const formRef = useRef<HTMLFormElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [selectedStockUrl, setSelectedStockUrl] = useState<string | null>(null);
 
   useEffect(() => {
     if (state.success) {
       formRef.current?.reset();
+      setSelectedStockUrl(null);
       onSuccess();
     }
   }, [state.success, onSuccess]);
+
+  function handleStockSelect(url: string) {
+    setSelectedStockUrl(url);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
+  function handleFileChange() {
+    if (fileInputRef.current?.files?.length) {
+      setSelectedStockUrl(null);
+    }
+  }
 
   return (
     <form ref={formRef} action={formAction} className="add-form">
@@ -62,11 +77,38 @@ export function AddPostForm({ onSuccess }: { onSuccess: () => void }) {
         <input name="authorAvatar" type="file" accept="image/*" />
       </label>
 
-      <label className="add-form-field">
-        Image
-        <input name="image" type="file" accept="image/*" />
+      <div className="add-form-field">
+        <span>Image</span>
+        <div className="stock-image-grid">
+          {STOCK_IMAGES.map((image) => (
+            <button
+              key={image.id}
+              type="button"
+              className={
+                selectedStockUrl === image.url
+                  ? 'stock-image-option stock-image-option-selected'
+                  : 'stock-image-option'
+              }
+              aria-pressed={selectedStockUrl === image.url}
+              aria-label={image.label}
+              onClick={() => handleStockSelect(image.url)}
+            >
+              <img src={image.thumbUrl} alt={image.label} loading="lazy" />
+            </button>
+          ))}
+        </div>
+        <input type="hidden" name="stockImageUrl" value={selectedStockUrl ?? ''} />
+
+        <span className="add-form-hint">Or upload your own</span>
+        <input
+          ref={fileInputRef}
+          name="image"
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
         {state.errors.image && <span className="add-form-error">{state.errors.image}</span>}
-      </label>
+      </div>
 
       <SubmitButton />
     </form>

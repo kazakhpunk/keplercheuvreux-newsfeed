@@ -3,7 +3,7 @@
 import { put } from '@vercel/blob';
 import { revalidatePath } from 'next/cache';
 import { createPost } from '@/lib/posts';
-import { validatePostFields, validateImageFile } from '@/lib/validation';
+import { isKnownStockImageUrl, validatePostFields, validateImageFile } from '@/lib/validation';
 import { initialAddPostState, type AddPostState } from './state';
 
 export type { AddPostState };
@@ -22,8 +22,19 @@ export async function addPost(
   const fieldErrors: Record<string, string> = { ...validatePostFields(values) };
 
   const imageEntry = formData.get('image');
-  const image = imageEntry instanceof File ? imageEntry : null;
-  const imageError = validateImageFile(image);
+  const image = imageEntry instanceof File && imageEntry.size > 0 ? imageEntry : null;
+  const stockImageUrl = String(formData.get('stockImageUrl') ?? '').trim();
+
+  let imageError: string | null = null;
+  if (image) {
+    imageError = validateImageFile(image);
+  } else if (stockImageUrl) {
+    if (!isKnownStockImageUrl(stockImageUrl)) {
+      imageError = 'Selected image is not valid.';
+    }
+  } else {
+    imageError = 'An image is required.';
+  }
   if (imageError) fieldErrors.image = imageError;
 
   const avatarEntry = formData.get('authorAvatar');
@@ -38,10 +49,16 @@ export async function addPost(
   }
 
   try {
-    const uploadedImage = await put(`posts/${Date.now()}-${image!.name}`, image!, {
-      access: 'public',
-      addRandomSuffix: true,
-    });
+    let uploadedImageUrl: string;
+    if (image) {
+      const uploadedImage = await put(`posts/${Date.now()}-${image.name}`, image, {
+        access: 'public',
+        addRandomSuffix: true,
+      });
+      uploadedImageUrl = uploadedImage.url;
+    } else {
+      uploadedImageUrl = stockImageUrl;
+    }
 
     let avatarUrl: string | null = null;
     if (avatar) {
@@ -56,7 +73,7 @@ export async function addPost(
       title: values.title,
       description: values.description,
       category: values.category,
-      imageUrl: uploadedImage.url,
+      imageUrl: uploadedImageUrl,
       authorName: values.authorName,
       authorAvatarUrl: avatarUrl,
     });

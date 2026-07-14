@@ -14,13 +14,14 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0a2540;
-  color: #ffffff;
-  padding: 24px;
+  background: #eef2f7;
+  color: #0a2540;
+  padding: 24px clamp(24px, 10vw, 88px);
 }
 
 .feed-message {
   font-size: 1.1rem;
+  color: #0a2540;
   opacity: 0.85;
 }
 
@@ -121,23 +122,40 @@ body {
   position: absolute;
   top: 40%;
   transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.1);
+  background: #ffffff;
   border: none;
-  color: #ffffff;
-  width: 36px;
-  height: 36px;
+  color: #0a2540;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   cursor: pointer;
   line-height: 1;
+  box-shadow: 0 6px 16px rgba(10, 37, 64, 0.28);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feed-arrow:hover {
+  transform: translateY(-50%) scale(1.06);
+  box-shadow: 0 8px 20px rgba(10, 37, 64, 0.35);
 }
 
 .feed-arrow-prev {
-  left: -8px;
+  left: -56px;
 }
 
 .feed-arrow-next {
-  right: -8px;
+  right: -56px;
+}
+
+@media (max-width: 560px) {
+  .feed-arrow-prev {
+    left: -40px;
+  }
+
+  .feed-arrow-next {
+    right: -40px;
+  }
 }
 
 .feed-dots {
@@ -150,13 +168,13 @@ body {
   height: 8px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(10, 37, 64, 0.25);
   cursor: pointer;
   padding: 0;
 }
 
 .feed-dot-active {
-  background: #ffffff;
+  background: #0a2540;
 }
 
 .add-page {
@@ -197,6 +215,41 @@ body {
 .add-form-field textarea {
   min-height: 100px;
   resize: vertical;
+}
+
+.add-form-hint {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.stock-image-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.stock-image-option {
+  position: relative;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  aspect-ratio: 4 / 3;
+}
+
+.stock-image-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.stock-image-option-selected {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 2px #0a2540, 0 0 0 4px #ffffff;
 }
 
 .add-form-error {

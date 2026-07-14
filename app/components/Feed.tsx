@@ -24,7 +24,7 @@ export function Feed({ posts }: { posts: Post[] }) {
         className="feed-add-button"
         onClick={() => setIsAddOpen(true)}
       >
-        + Add post
+        + Add news
       </button>
 
       <button
