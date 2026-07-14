@@ -35,6 +35,11 @@ body {
   gap: 16px;
 }
 
+.feed-card-stage {
+  position: relative;
+  width: 100%;
+}
+
 .feed-viewport {
   width: 100%;
   overflow: hidden;
@@ -309,26 +314,23 @@ body {
 }
 
 .modal-overlay {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  background: rgba(10, 37, 64, 0.75);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  z-index: 100;
+  padding: 0 16px;
+  z-index: 20;
 }
 
 .modal-dialog {
   position: relative;
   width: 100%;
-  max-width: 480px;
-  max-height: 90vh;
+  height: 100%;
   overflow-y: auto;
-  background: #0a2540;
-  color: #ffffff;
+  background: #ffffff;
+  color: #0a2540;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(10, 37, 64, 0.12);
+  box-shadow: 0 12px 32px rgba(10, 37, 64, 0.2);
   padding: 32px 24px 24px;
 }
 
@@ -336,15 +338,40 @@ body {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(10, 37, 64, 0.08);
   border: none;
-  color: #ffffff;
+  color: #0a2540;
   width: 32px;
   height: 32px;
   border-radius: 50%;
   font-size: 1.25rem;
   cursor: pointer;
   line-height: 1;
+}
+
+.modal-dialog .add-form-field input,
+.modal-dialog .add-form-field textarea {
+  background: rgba(10, 37, 64, 0.04);
+  border-color: rgba(10, 37, 64, 0.18);
+  color: #0a2540;
+}
+
+.modal-dialog .add-form-error {
+  color: #c0392b;
+}
+
+.modal-dialog .add-form-submit {
+  background: #0a2540;
+  color: #ffffff;
+}
+
+.modal-dialog .stock-image-option {
+  background: rgba(10, 37, 64, 0.04);
+}
+
+.modal-dialog .stock-image-option-selected {
+  border-color: #0a2540;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0a2540;
 }
 
 .modal-dialog h2 {

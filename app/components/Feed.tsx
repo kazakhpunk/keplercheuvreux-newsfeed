@@ -36,14 +36,18 @@ export function Feed({ posts }: { posts: Post[] }) {
         ‹
       </button>
 
-      <div className="feed-viewport">
-        <div className="feed-track" style={{ transform: `translateX(-${index * 100}%)` }}>
-          {posts.map((post) => (
-            <div className="feed-slide" key={post.id}>
-              <PostCard post={post} />
-            </div>
-          ))}
+      <div className="feed-card-stage">
+        <div className="feed-viewport">
+          <div className="feed-track" style={{ transform: `translateX(-${index * 100}%)` }}>
+            {posts.map((post) => (
+              <div className="feed-slide" key={post.id}>
+                <PostCard post={post} />
+              </div>
+            ))}
+          </div>
         </div>
+
+        {isAddOpen && <AddPostModal onClose={handleAddSuccess} />}
       </div>
 
       <button
@@ -66,10 +70,6 @@ export function Feed({ posts }: { posts: Post[] }) {
           />
         ))}
       </div>
-
-      {isAddOpen && (
-        <AddPostModal onClose={handleAddSuccess} />
-      )}
     </div>
   );
 }
