@@ -245,45 +245,22 @@ body {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px clamp(40px, 9vw, 120px);
-  z-index: 100;
+.feed-add-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s ease-in-out;
 }
 
-.modal-dialog {
-  position: relative;
-  width: 100%;
-  max-width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  background: #003366;
-  color: #ffffff;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 12px 32px rgba(0, 51, 102, 0.35);
-  padding: 32px 24px 24px;
+.feed-add-panel-open {
+  grid-template-rows: 1fr;
 }
 
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  color: #ffffff;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 1.25rem;
-  cursor: pointer;
-  line-height: 1;
+.feed-add-panel-inner {
+  overflow: hidden;
+  min-height: 0;
 }
 
-.modal-dialog h2 {
-  margin: 0 0 16px;
+.feed-add-panel-open .feed-add-panel-inner {
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }

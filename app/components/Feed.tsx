@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import type { Post } from '@/lib/posts';
-import { AddPostModal } from './AddPostModal';
+import { AddPostForm } from '../add/AddPostForm';
 import { PostCard } from './PostCard';
 
 export function Feed({ posts }: { posts: Post[] }) {
@@ -23,17 +23,22 @@ export function Feed({ posts }: { posts: Post[] }) {
         <button
           type="button"
           className="feed-add-row"
-          onClick={() => setIsAddOpen(true)}
+          aria-expanded={isAddOpen}
+          onClick={() => setIsAddOpen((value) => !value)}
         >
-          + Add news
+          {isAddOpen ? '− Cancel' : '+ Add news'}
         </button>
+
+        <div className={isAddOpen ? 'feed-add-panel feed-add-panel-open' : 'feed-add-panel'}>
+          <div className="feed-add-panel-inner">
+            <AddPostForm onSuccess={handleAddSuccess} />
+          </div>
+        </div>
 
         {posts.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}
       </div>
-
-      {isAddOpen && <AddPostModal onClose={handleAddSuccess} />}
     </div>
   );
 }
