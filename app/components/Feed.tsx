@@ -1,16 +1,28 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Post } from '@/lib/posts';
 import { nextIndex, prevIndex, clampIndex } from '@/lib/slider';
 import { AddPostModal } from './AddPostModal';
 import { PostCard } from './PostCard';
 
+const AUTOPLAY_INTERVAL_MS = 6000;
+
 export function Feed({ posts }: { posts: Post[] }) {
   const [index, setIndex] = useState(() => clampIndex(0, posts.length));
   const [isAddOpen, setIsAddOpen] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (isAddOpen || posts.length <= 1) return;
+
+    const timer = setInterval(() => {
+      setIndex((value) => nextIndex(value, posts.length));
+    }, AUTOPLAY_INTERVAL_MS);
+
+    return () => clearInterval(timer);
+  }, [isAddOpen, posts.length]);
 
   function handleAddSuccess() {
     setIsAddOpen(false);
