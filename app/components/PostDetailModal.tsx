@@ -1,4 +1,9 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
 import type { Post } from '@/lib/posts';
+import { recordPostView } from '../actions/engagement';
+import { PostStats } from './PostStats';
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, {
@@ -9,6 +14,14 @@ function formatDate(iso: string): string {
 }
 
 export function PostDetailModal({ post, onClose }: { post: Post; onClose: () => void }) {
+  const hasRecordedView = useRef(false);
+
+  useEffect(() => {
+    if (hasRecordedView.current) return;
+    hasRecordedView.current = true;
+    recordPostView(post.id);
+  }, [post.id]);
+
   return (
     <div className="post-modal-overlay" onClick={onClose}>
       <div className="post-modal-dialog" onClick={(event) => event.stopPropagation()}>
@@ -31,6 +44,7 @@ export function PostDetailModal({ post, onClose }: { post: Post; onClose: () => 
               <div className="post-card-date">{formatDate(post.createdAt)}</div>
             </div>
           </div>
+          <PostStats postId={post.id} viewsCount={post.viewsCount + 1} likesCount={post.likesCount} />
         </div>
       </div>
     </div>

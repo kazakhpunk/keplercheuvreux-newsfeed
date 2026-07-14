@@ -1,4 +1,5 @@
 import type { Post } from '@/lib/posts';
+import { PostStats } from './PostStats';
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString(undefined, {
@@ -37,6 +38,7 @@ export function PostCard({ post, onSelect }: { post: Post; onSelect: (post: Post
             <div className="post-card-date">{formatDate(post.createdAt)}</div>
           </div>
         </div>
+        <PostStats postId={post.id} viewsCount={post.viewsCount} likesCount={post.likesCount} />
       </div>
     </article>
   );

@@ -122,6 +122,39 @@ body {
   opacity: 0.7;
 }
 
+.post-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.post-stats-views {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.post-stats-like {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0;
+  cursor: pointer;
+}
+
+.post-stats-like:hover {
+  color: #ffffff;
+}
+
+.post-stats-like-active {
+  color: #ff6b81;
+}
+
 @media (max-width: 480px) {
   .post-card {
     flex-direction: column;
