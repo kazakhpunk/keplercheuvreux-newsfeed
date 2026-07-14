@@ -16,7 +16,7 @@ body {
   justify-content: center;
   background: #ffffff;
   color: #003366;
-  padding: 24px clamp(40px, 9vw, 120px);
+  padding: 24px clamp(16px, 3vw, 32px);
 }
 
 .feed-message {
@@ -170,7 +170,7 @@ body {
 
 .stock-image-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }
 
@@ -243,6 +243,18 @@ body {
 
 .feed-add-row:hover {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.feed-add-row-icon {
+  display: inline-flex;
+  transform: rotate(0deg);
+  transition: transform 0.25s ease;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.feed-add-row[aria-expanded='true'] .feed-add-row-icon {
+  transform: rotate(90deg);
 }
 
 .feed-add-panel {

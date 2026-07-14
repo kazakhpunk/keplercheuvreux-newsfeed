@@ -26,7 +26,10 @@ export function Feed({ posts }: { posts: Post[] }) {
           aria-expanded={isAddOpen}
           onClick={() => setIsAddOpen((value) => !value)}
         >
-          {isAddOpen ? '− Cancel' : '+ Add news'}
+          <span className="feed-add-row-icon" aria-hidden="true">
+            ›
+          </span>
+          {isAddOpen ? 'Cancel' : 'Add news'}
         </button>
 
         <div className={isAddOpen ? 'feed-add-panel feed-add-panel-open' : 'feed-add-panel'}>
