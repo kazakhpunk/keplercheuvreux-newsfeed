@@ -227,7 +227,6 @@ body {
 
 .add-form {
   width: 100%;
-  max-width: 480px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -242,6 +241,7 @@ body {
 
 .add-form-field input,
 .add-form-field textarea {
+  width: 100%;
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
