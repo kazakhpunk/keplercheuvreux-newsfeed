@@ -15,13 +15,13 @@ body {
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  color: #0a2540;
+  color: #003366;
   padding: 24px clamp(40px, 9vw, 120px);
 }
 
 .feed-message {
   font-size: 1.1rem;
-  color: #0a2540;
+  color: #003366;
   opacity: 0.85;
 }
 
@@ -36,7 +36,7 @@ body {
 
 .feed-list {
   width: 100%;
-  background: #0a2540;
+  background: #003366;
   color: #ffffff;
   border-radius: 12px;
   padding: 8px clamp(20px, 4vw, 40px) 0;
@@ -124,7 +124,7 @@ body {
 
 .add-page {
   min-height: 100vh;
-  background: #0a2540;
+  background: #003366;
   color: #ffffff;
   padding: 32px 24px;
   display: flex;
@@ -194,7 +194,7 @@ body {
 
 .stock-image-option-selected {
   border-color: #ffffff;
-  box-shadow: 0 0 0 2px #0a2540, 0 0 0 4px #ffffff;
+  box-shadow: 0 0 0 2px #003366, 0 0 0 4px #ffffff;
 }
 
 .add-form-error {
@@ -207,7 +207,7 @@ body {
   border-radius: 8px;
   border: none;
   background: #ffffff;
-  color: #0a2540;
+  color: #003366;
   font-weight: 600;
   cursor: pointer;
 }
@@ -253,20 +253,20 @@ body {
   justify-content: center;
   padding: 24px;
   z-index: 100;
-  background: rgba(10, 37, 64, 0.55);
+  background: rgba(0, 51, 102, 0.55);
 }
 
 .modal-dialog {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: min(1080px, 94vw);
   max-height: 90vh;
   overflow-y: auto;
-  background: #0a2540;
+  background: #003366;
   color: #ffffff;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 12px 32px rgba(10, 37, 64, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 51, 102, 0.35);
   padding: 32px 24px 24px;
 }
 
