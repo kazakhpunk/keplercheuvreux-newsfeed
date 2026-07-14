@@ -17,15 +17,17 @@ export function Feed({ posts }: { posts: Post[] }) {
 
   return (
     <div className="feed-list-wrap">
-      <button
-        type="button"
-        className="feed-add-button"
-        onClick={() => setIsAddOpen(true)}
-      >
-        + Add news
-      </button>
-
       <div className="feed-list">
+        <h2 className="feed-list-title">Latest news</h2>
+
+        <button
+          type="button"
+          className="feed-add-row"
+          onClick={() => setIsAddOpen(true)}
+        >
+          + Add news
+        </button>
+
         {posts.map((post) => (
           <PostCard post={post} key={post.id} />
         ))}

@@ -217,18 +217,32 @@ body {
   cursor: not-allowed;
 }
 
-.feed-add-button {
-  position: absolute;
-  top: -48px;
-  right: 0;
-  background: #ffffff;
-  color: #0a2540;
+.feed-list-title {
+  margin: 0;
+  padding: 24px 0 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.feed-add-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
   border: none;
-  border-radius: 999px;
-  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: #ffffff;
   font-weight: 600;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
+  text-align: left;
   cursor: pointer;
+}
+
+.feed-add-row:hover {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .modal-overlay {
