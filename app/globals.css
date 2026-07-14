@@ -12,16 +12,16 @@ body {
 .feed-page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  background: #ffffff;
-  color: #003366;
-  padding: 24px 12px;
+  background: #003366;
+  color: #ffffff;
+  padding: 0;
 }
 
 .feed-message {
   font-size: 1.1rem;
-  color: #003366;
+  color: #ffffff;
   opacity: 0.85;
 }
 
@@ -36,10 +36,6 @@ body {
 
 .feed-list {
   width: 100%;
-  background: #003366;
-  color: #ffffff;
-  border-radius: 12px;
-  padding: 8px clamp(20px, 4vw, 40px) 0;
   display: flex;
   flex-direction: column;
 }
@@ -48,7 +44,7 @@ body {
   width: 100%;
   display: flex;
   gap: 20px;
-  padding: 24px 0;
+  padding: 24px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
@@ -219,7 +215,7 @@ body {
 
 .feed-list-title {
   margin: 0;
-  padding: 24px 0 8px;
+  padding: 24px 16px 8px;
   font-size: 1.3rem;
   font-weight: 700;
   color: #ffffff;
@@ -230,7 +226,7 @@ body {
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 16px 0;
+  padding: 16px 16px;
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   background: transparent;
@@ -273,6 +269,6 @@ body {
 }
 
 .feed-add-panel-open .feed-add-panel-inner {
-  padding: 24px 0;
+  padding: 24px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
