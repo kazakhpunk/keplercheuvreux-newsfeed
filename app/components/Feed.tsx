@@ -31,6 +31,7 @@ export function Feed({ posts }: { posts: Post[] }) {
         type="button"
         aria-label="Previous post"
         className="feed-arrow feed-arrow-prev"
+        disabled={isAddOpen}
         onClick={() => setIndex((value) => prevIndex(value, posts.length))}
       >
         ‹
@@ -54,6 +55,7 @@ export function Feed({ posts }: { posts: Post[] }) {
         type="button"
         aria-label="Next post"
         className="feed-arrow feed-arrow-next"
+        disabled={isAddOpen}
         onClick={() => setIndex((value) => nextIndex(value, posts.length))}
       >
         ›
@@ -66,6 +68,7 @@ export function Feed({ posts }: { posts: Post[] }) {
             type="button"
             aria-label={`Go to post ${dotIndex + 1}`}
             className={dotIndex === index ? 'feed-dot feed-dot-active' : 'feed-dot'}
+            disabled={isAddOpen}
             onClick={() => setIndex(dotIndex)}
           />
         ))}
