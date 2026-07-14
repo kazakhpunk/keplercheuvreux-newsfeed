@@ -16,7 +16,7 @@ body {
   justify-content: center;
   background: #ffffff;
   color: #003366;
-  padding: 24px clamp(16px, 3vw, 32px);
+  padding: 24px 12px;
 }
 
 .feed-message {
