@@ -11,21 +11,20 @@ function formatDate(iso: string): string {
 export function PostCard({ post }: { post: Post }) {
   return (
     <article className="post-card">
-      <div className="post-card-image-wrap">
-        <img src={post.imageUrl} alt={post.title} className="post-card-image" />
-        <span className="post-card-tag">{post.category}</span>
-      </div>
-      <h2 className="post-card-title">{post.title}</h2>
-      <p className="post-card-description">{post.description}</p>
-      <div className="post-card-author">
-        <img
-          src={post.authorAvatarUrl ?? '/default-avatar.svg'}
-          alt=""
-          className="post-card-avatar"
-        />
-        <div>
-          <div className="post-card-author-name">{post.authorName}</div>
-          <div className="post-card-date">{formatDate(post.createdAt)}</div>
+      <img src={post.imageUrl} alt={post.title} className="post-card-image" />
+      <div className="post-card-body">
+        <h2 className="post-card-title">{post.title}</h2>
+        <p className="post-card-description">{post.description}</p>
+        <div className="post-card-author">
+          <img
+            src={post.authorAvatarUrl ?? '/default-avatar.svg'}
+            alt=""
+            className="post-card-avatar"
+          />
+          <div>
+            <div className="post-card-author-name">{post.authorName}</div>
+            <div className="post-card-date">{formatDate(post.createdAt)}</div>
+          </div>
         </div>
       </div>
     </article>
