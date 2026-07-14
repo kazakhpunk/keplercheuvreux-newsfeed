@@ -79,11 +79,12 @@ body {
   flex-direction: column;
   gap: 6px;
   min-width: 0;
+  max-width: 900px;
 }
 
 .post-card-title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
 }
 
 .post-card-description {
