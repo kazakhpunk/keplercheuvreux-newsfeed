@@ -8,9 +8,20 @@ function formatDate(iso: string): string {
   });
 }
 
-export function PostCard({ post }: { post: Post }) {
+export function PostCard({ post, onSelect }: { post: Post; onSelect: (post: Post) => void }) {
   return (
-    <article className="post-card">
+    <article
+      className="post-card"
+      role="button"
+      tabIndex={0}
+      onClick={() => onSelect(post)}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onSelect(post);
+        }
+      }}
+    >
       <img src={post.imageUrl} alt={post.title} className="post-card-image" />
       <div className="post-card-body">
         <h2 className="post-card-title">{post.title}</h2>

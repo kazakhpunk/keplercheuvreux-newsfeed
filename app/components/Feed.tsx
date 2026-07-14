@@ -5,9 +5,11 @@ import { useState } from 'react';
 import type { Post } from '@/lib/posts';
 import { AddPostForm } from '../add/AddPostForm';
 import { PostCard } from './PostCard';
+import { PostDetailModal } from './PostDetailModal';
 
 export function Feed({ posts }: { posts: Post[] }) {
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const router = useRouter();
 
   function handleAddSuccess() {
@@ -39,9 +41,13 @@ export function Feed({ posts }: { posts: Post[] }) {
         </div>
 
         {posts.map((post) => (
-          <PostCard post={post} key={post.id} />
+          <PostCard post={post} key={post.id} onSelect={setSelectedPost} />
         ))}
       </div>
+
+      {selectedPost && (
+        <PostDetailModal post={selectedPost} onClose={() => setSelectedPost(null)} />
+      )}
     </div>
   );
 }

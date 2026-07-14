@@ -46,6 +46,20 @@ body {
   gap: 20px;
   padding: 24px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  text-align: left;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: inherit;
+  font: inherit;
+  transition: background 0.15s ease;
+}
+
+.post-card:hover,
+.post-card:focus-visible {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .post-card:last-child {
@@ -53,10 +67,10 @@ body {
 }
 
 .post-card-image {
-  width: 160px;
-  height: 120px;
+  width: 220px;
+  height: 140px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
@@ -271,4 +285,82 @@ body {
 .feed-add-panel-open .feed-add-panel-inner {
   padding: 24px 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.post-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+  background: rgba(0, 51, 102, 0.55);
+}
+
+.post-modal-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #003366;
+  color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 12px 32px rgba(0, 51, 102, 0.35);
+}
+
+.post-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 1;
+}
+
+.post-modal-image {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+.post-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post-modal-tag {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.post-modal-title {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.post-modal-description {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  white-space: pre-wrap;
 }
