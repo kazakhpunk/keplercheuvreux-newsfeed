@@ -166,6 +166,21 @@ body {
   }
 }
 
+/* Hide the visible scrollbar on narrow viewports (e.g. the SharePoint
+   embed iframe on mobile); touch scrolling keeps working. */
+@media (max-width: 768px) {
+  html,
+  body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .add-page {
   min-height: 100vh;
   background: #003366;
