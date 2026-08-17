@@ -10,7 +10,8 @@ async function main() {
       image_url TEXT NOT NULL,
       author_name TEXT NOT NULL,
       author_avatar_url TEXT,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `;
   console.log('posts table ready');

@@ -25,6 +25,7 @@ vi.mock('@/lib/posts', () => ({
       authorName: input.authorName,
       authorAvatarUrl: input.authorAvatarUrl,
       createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       viewsCount: 0,
       likesCount: 0,
     };

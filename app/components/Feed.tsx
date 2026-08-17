@@ -46,7 +46,11 @@ export function Feed({ posts }: { posts: Post[] }) {
       </div>
 
       {selectedPost && (
-        <PostDetailModal post={selectedPost} onClose={() => setSelectedPost(null)} />
+        <PostDetailModal
+          post={selectedPost}
+          onClose={() => setSelectedPost(null)}
+          onChanged={() => router.refresh()}
+        />
       )}
     </div>
   );

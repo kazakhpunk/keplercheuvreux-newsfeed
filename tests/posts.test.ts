@@ -12,6 +12,7 @@ describe('rowToPost', () => {
       author_name: 'Jane Doe',
       author_avatar_url: null,
       created_at: '2026-07-08T00:00:00.000Z',
+      updated_at: '2026-07-09T00:00:00.000Z',
       views_count: 5,
       likes_count: 2,
     };
@@ -27,6 +28,7 @@ describe('rowToPost', () => {
       authorName: 'Jane Doe',
       authorAvatarUrl: null,
       createdAt: '2026-07-08T00:00:00.000Z',
+      updatedAt: '2026-07-09T00:00:00.000Z',
       viewsCount: 5,
       likesCount: 2,
     });

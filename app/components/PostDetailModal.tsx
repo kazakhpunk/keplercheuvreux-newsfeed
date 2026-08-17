@@ -1,8 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Post } from '@/lib/posts';
 import { recordPostView } from '../actions/engagement';
+import { deletePost } from '../actions/posts';
+import { EditPostForm } from './EditPostForm';
 import { PostStats } from './PostStats';
 
 function formatDate(iso: string): string {
@@ -13,14 +15,39 @@ function formatDate(iso: string): string {
   });
 }
 
-export function PostDetailModal({ post, onClose }: { post: Post; onClose: () => void }) {
+export function PostDetailModal({
+  post,
+  onClose,
+  onChanged,
+}: {
+  post: Post;
+  onClose: () => void;
+  onChanged: () => void;
+}) {
   const hasRecordedView = useRef(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   useEffect(() => {
     if (hasRecordedView.current) return;
     hasRecordedView.current = true;
     recordPostView(post.id);
   }, [post.id]);
+
+  async function handleDelete() {
+    setIsDeleting(true);
+    setDeleteError(null);
+    const result = await deletePost(post.id);
+    if (result.success) {
+      onChanged();
+      onClose();
+      return;
+    }
+    setIsDeleting(false);
+    setDeleteError(result.error);
+  }
 
   return (
     <div className="post-modal-overlay" onClick={onClose}>
@@ -30,21 +57,83 @@ export function PostDetailModal({ post, onClose }: { post: Post; onClose: () => 
         </button>
         <img src={post.imageUrl} alt={post.title} className="post-modal-image" />
         <div className="post-modal-body">
-          <span className="post-modal-tag">{post.category}</span>
-          <h2 className="post-modal-title">{post.title}</h2>
-          <p className="post-modal-description">{post.description}</p>
-          <div className="post-card-author">
-            <img
-              src={post.authorAvatarUrl ?? '/default-avatar.svg'}
-              alt=""
-              className="post-card-avatar"
-            />
-            <div>
-              <div className="post-card-author-name">{post.authorName}</div>
-              <div className="post-card-date">{formatDate(post.createdAt)}</div>
-            </div>
-          </div>
-          <PostStats postId={post.id} viewsCount={post.viewsCount + 1} likesCount={post.likesCount} />
+          {isEditing ? (
+            <>
+              <h2 className="post-modal-title">Edit post</h2>
+              <EditPostForm
+                post={post}
+                onSaved={() => {
+                  setIsEditing(false);
+                  onChanged();
+                  onClose();
+                }}
+                onCancel={() => setIsEditing(false)}
+              />
+            </>
+          ) : (
+            <>
+              <span className="post-modal-tag">{post.category}</span>
+              <h2 className="post-modal-title">{post.title}</h2>
+              <p className="post-modal-description">{post.description}</p>
+              <div className="post-card-author">
+                <img
+                  src={post.authorAvatarUrl ?? '/default-avatar.svg'}
+                  alt=""
+                  className="post-card-avatar"
+                />
+                <div>
+                  <div className="post-card-author-name">{post.authorName}</div>
+                  <div className="post-card-date">{formatDate(post.createdAt)}</div>
+                </div>
+              </div>
+              <PostStats
+                postId={post.id}
+                viewsCount={post.viewsCount + 1}
+                likesCount={post.likesCount}
+              />
+
+              {deleteError && <p className="add-form-error">{deleteError}</p>}
+
+              {isConfirmingDelete ? (
+                <div className="post-modal-actions">
+                  <span className="post-modal-confirm-text">Delete this post permanently?</span>
+                  <button
+                    type="button"
+                    className="post-modal-button"
+                    onClick={() => setIsConfirmingDelete(false)}
+                    disabled={isDeleting}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    className="post-modal-button post-modal-button-danger"
+                    onClick={handleDelete}
+                    disabled={isDeleting}
+                  >
+                    {isDeleting ? 'Deleting…' : 'Delete'}
+                  </button>
+                </div>
+              ) : (
+                <div className="post-modal-actions">
+                  <button
+                    type="button"
+                    className="post-modal-button"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    className="post-modal-button post-modal-button-danger"
+                    onClick={() => setIsConfirmingDelete(true)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

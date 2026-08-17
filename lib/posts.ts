@@ -9,6 +9,7 @@ export type Post = {
   authorName: string;
   authorAvatarUrl: string | null;
   createdAt: string;
+  updatedAt: string;
   viewsCount: number;
   likesCount: number;
 };
@@ -31,6 +32,7 @@ type PostRow = {
   author_name: string;
   author_avatar_url: string | null;
   created_at: string;
+  updated_at: string;
   views_count: number;
   likes_count: number;
 };
@@ -45,6 +47,7 @@ export function rowToPost(row: PostRow): Post {
     authorName: row.author_name,
     authorAvatarUrl: row.author_avatar_url,
     createdAt: row.created_at,
+    updatedAt: row.updated_at,
     viewsCount: row.views_count,
     likesCount: row.likes_count,
   };
@@ -52,7 +55,7 @@ export function rowToPost(row: PostRow): Post {
 
 export async function getPosts(): Promise<Post[]> {
   const { rows } = await sql<PostRow>`
-    SELECT id, title, description, category, image_url, author_name, author_avatar_url, created_at, views_count, likes_count
+    SELECT id, title, description, category, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
     FROM posts
     ORDER BY created_at DESC
   `;
@@ -63,9 +66,44 @@ export async function createPost(input: NewPost): Promise<Post> {
   const { rows } = await sql<PostRow>`
     INSERT INTO posts (title, description, category, image_url, author_name, author_avatar_url)
     VALUES (${input.title}, ${input.description}, ${input.category}, ${input.imageUrl}, ${input.authorName}, ${input.authorAvatarUrl})
-    RETURNING id, title, description, category, image_url, author_name, author_avatar_url, created_at, views_count, likes_count
+    RETURNING id, title, description, category, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
   `;
   return rowToPost(rows[0]);
+}
+
+export type PostEdit = {
+  title: string;
+  description: string;
+  category: string;
+  authorName: string;
+  imageUrl?: string;
+  authorAvatarUrl?: string;
+};
+
+/**
+ * Updates a post's text fields, and its image/avatar only when a replacement
+ * is supplied — an omitted imageUrl/authorAvatarUrl keeps the current value.
+ */
+export async function updatePost(id: number, input: PostEdit): Promise<Post> {
+  const { rows } = await sql<PostRow>`
+    UPDATE posts
+    SET title = ${input.title},
+        description = ${input.description},
+        category = ${input.category},
+        author_name = ${input.authorName},
+        image_url = COALESCE(${input.imageUrl ?? null}, image_url),
+        author_avatar_url = COALESCE(${input.authorAvatarUrl ?? null}, author_avatar_url),
+        updated_at = now()
+    WHERE id = ${id}
+    RETURNING id, title, description, category, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
+  `;
+  if (rows.length === 0) throw new Error(`Post ${id} not found`);
+  return rowToPost(rows[0]);
+}
+
+export async function deletePost(id: number): Promise<void> {
+  const result = await sql`DELETE FROM posts WHERE id = ${id}`;
+  if (result.rowCount === 0) throw new Error(`Post ${id} not found`);
 }
 
 export async function incrementPostViews(id: number): Promise<number> {

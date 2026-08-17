@@ -420,3 +420,62 @@ body {
   opacity: 0.9;
   white-space: pre-wrap;
 }
+
+.post-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.post-modal-confirm-text {
+  font-size: 0.85rem;
+  opacity: 0.85;
+  margin-right: auto;
+}
+
+.post-modal-button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.post-modal-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.post-modal-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.post-modal-button-danger {
+  border-color: rgba(255, 155, 155, 0.7);
+  color: #ff9b9b;
+}
+
+.post-modal-button-danger:hover:not(:disabled) {
+  background: rgba(255, 107, 129, 0.15);
+}
+
+.post-modal-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 8px;
+}
+
+.post-modal-form-actions .add-form-submit {
+  width: auto;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}

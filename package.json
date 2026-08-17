@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "test": "vitest run",
-    "db:init": "node --env-file=.env.local scripts/init-db.mjs"
+    "db:init": "node --env-file=.env.local scripts/init-db.mjs",
+    "db:add-updated-at": "node --env-file=.env.local scripts/add-updated-at-column.mjs"
   },
   "dependencies": {
     "@vercel/blob": "^2.6.1",
