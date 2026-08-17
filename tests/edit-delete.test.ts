@@ -25,7 +25,6 @@ const existingPost: Post = {
   id: 7,
   title: 'Original title',
   description: 'Original description',
-  category: 'News',
   imageUrl: 'https://blob.example.com/posts/original.png',
   authorName: 'Jane Doe',
   authorAvatarUrl: null,
@@ -39,7 +38,6 @@ function buildFormData(overrides: Partial<Record<string, string>> = {}): FormDat
   const formData = new FormData();
   formData.set('title', overrides.title ?? 'Updated title');
   formData.set('description', overrides.description ?? 'Updated description');
-  formData.set('category', overrides.category ?? 'News');
   formData.set('authorName', overrides.authorName ?? 'Jane Doe');
   return formData;
 }
@@ -67,7 +65,6 @@ describe('editPost', () => {
     expect(updatePostMock).toHaveBeenCalledWith(7, {
       title: 'Updated title',
       description: 'Updated description',
-      category: 'News',
       authorName: 'Jane Doe',
       imageUrl: undefined,
       authorAvatarUrl: undefined,

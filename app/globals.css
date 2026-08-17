@@ -74,6 +74,19 @@ body {
   flex-shrink: 0;
 }
 
+/* Stands in for the image on posts that don't have one. Deliberately static
+   rather than shimmering — a shimmer would read as "still loading" when in
+   fact there is nothing more to load. */
+.post-image-placeholder {
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.11) 0%,
+    rgba(255, 255, 255, 0.05) 45%,
+    rgba(255, 255, 255, 0.09) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .post-card-body {
   display: flex;
   flex-direction: column;
@@ -396,16 +409,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
-}
-
-.post-modal-tag {
-  align-self: flex-start;
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 999px;
 }
 
 .post-modal-title {

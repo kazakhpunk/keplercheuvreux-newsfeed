@@ -20,7 +20,7 @@ export function Feed({ posts }: { posts: Post[] }) {
   return (
     <div className="feed-list-wrap">
       <div className="feed-list">
-        <h2 className="feed-list-title">Latest news</h2>
+        <h2 className="feed-list-title">News feed</h2>
 
         <button
           type="button"

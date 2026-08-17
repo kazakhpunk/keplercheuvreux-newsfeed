@@ -6,7 +6,6 @@ export type EditPostState = {
   values: {
     title: string;
     description: string;
-    category: string;
     authorName: string;
   };
 };
@@ -18,7 +17,6 @@ export function initialEditPostState(post: Post): EditPostState {
     values: {
       title: post.title,
       description: post.description,
-      category: post.category,
       authorName: post.authorName,
     },
   };

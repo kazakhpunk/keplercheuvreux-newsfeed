@@ -51,17 +51,11 @@ export function AddPostForm({ onSuccess }: { onSuccess: () => void }) {
       </label>
 
       <label className="add-form-field">
-        Description
+        Content
         <textarea name="description" defaultValue={state.values.description} />
         {state.errors.description && (
           <span className="add-form-error">{state.errors.description}</span>
         )}
-      </label>
-
-      <label className="add-form-field">
-        Category
-        <input name="category" type="text" defaultValue={state.values.category} />
-        {state.errors.category && <span className="add-form-error">{state.errors.category}</span>}
       </label>
 
       <label className="add-form-field">
@@ -78,7 +72,7 @@ export function AddPostForm({ onSuccess }: { onSuccess: () => void }) {
       </label>
 
       <div className="add-form-field">
-        <span>Image</span>
+        <span>Image (optional)</span>
         <div className="stock-image-grid">
           {STOCK_IMAGES.map((image) => (
             <button

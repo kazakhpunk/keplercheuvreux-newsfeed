@@ -20,7 +20,6 @@ vi.mock('@/lib/posts', () => ({
       id: nextId++,
       title: input.title,
       description: input.description,
-      category: input.category,
       imageUrl: input.imageUrl,
       authorName: input.authorName,
       authorAvatarUrl: input.authorAvatarUrl,
@@ -47,7 +46,6 @@ function buildFormData(overrides: Partial<Record<string, string>> = {}): FormDat
   const formData = new FormData();
   formData.set('title', overrides.title ?? 'Integration Test Title');
   formData.set('description', overrides.description ?? 'Integration test description');
-  formData.set('category', overrides.category ?? 'News');
   formData.set('authorName', overrides.authorName ?? 'Jane Doe');
   formData.set('image', new File(['fake-bytes'], 'photo.png', { type: 'image/png' }));
   return formData;
@@ -74,7 +72,6 @@ describe('/add -> / integration flow', () => {
       expect.objectContaining({
         title: 'Integration Test Title',
         description: 'Integration test description',
-        category: 'News',
         authorName: 'Jane Doe',
       })
     );

@@ -4,8 +4,7 @@ export type Post = {
   id: number;
   title: string;
   description: string;
-  category: string;
-  imageUrl: string;
+  imageUrl: string | null;
   authorName: string;
   authorAvatarUrl: string | null;
   createdAt: string;
@@ -17,8 +16,7 @@ export type Post = {
 export type NewPost = {
   title: string;
   description: string;
-  category: string;
-  imageUrl: string;
+  imageUrl: string | null;
   authorName: string;
   authorAvatarUrl: string | null;
 };
@@ -27,8 +25,7 @@ type PostRow = {
   id: number;
   title: string;
   description: string;
-  category: string;
-  image_url: string;
+  image_url: string | null;
   author_name: string;
   author_avatar_url: string | null;
   created_at: string;
@@ -42,7 +39,6 @@ export function rowToPost(row: PostRow): Post {
     id: row.id,
     title: row.title,
     description: row.description,
-    category: row.category,
     imageUrl: row.image_url,
     authorName: row.author_name,
     authorAvatarUrl: row.author_avatar_url,
@@ -55,7 +51,7 @@ export function rowToPost(row: PostRow): Post {
 
 export async function getPosts(): Promise<Post[]> {
   const { rows } = await sql<PostRow>`
-    SELECT id, title, description, category, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
+    SELECT id, title, description, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
     FROM posts
     ORDER BY created_at DESC
   `;
@@ -64,9 +60,9 @@ export async function getPosts(): Promise<Post[]> {
 
 export async function createPost(input: NewPost): Promise<Post> {
   const { rows } = await sql<PostRow>`
-    INSERT INTO posts (title, description, category, image_url, author_name, author_avatar_url)
-    VALUES (${input.title}, ${input.description}, ${input.category}, ${input.imageUrl}, ${input.authorName}, ${input.authorAvatarUrl})
-    RETURNING id, title, description, category, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
+    INSERT INTO posts (title, description, image_url, author_name, author_avatar_url)
+    VALUES (${input.title}, ${input.description}, ${input.imageUrl}, ${input.authorName}, ${input.authorAvatarUrl})
+    RETURNING id, title, description, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
   `;
   return rowToPost(rows[0]);
 }
@@ -74,7 +70,6 @@ export async function createPost(input: NewPost): Promise<Post> {
 export type PostEdit = {
   title: string;
   description: string;
-  category: string;
   authorName: string;
   imageUrl?: string;
   authorAvatarUrl?: string;
@@ -89,13 +84,12 @@ export async function updatePost(id: number, input: PostEdit): Promise<Post> {
     UPDATE posts
     SET title = ${input.title},
         description = ${input.description},
-        category = ${input.category},
         author_name = ${input.authorName},
         image_url = COALESCE(${input.imageUrl ?? null}, image_url),
         author_avatar_url = COALESCE(${input.authorAvatarUrl ?? null}, author_avatar_url),
         updated_at = now()
     WHERE id = ${id}
-    RETURNING id, title, description, category, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
+    RETURNING id, title, description, image_url, author_name, author_avatar_url, created_at, updated_at, views_count, likes_count
   `;
   if (rows.length === 0) throw new Error(`Post ${id} not found`);
   return rowToPost(rows[0]);

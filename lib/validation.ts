@@ -1,13 +1,12 @@
 import { STOCK_IMAGES } from './stockImages';
 
 export type PostFieldErrors = Partial<
-  Record<'title' | 'description' | 'category' | 'authorName' | 'image' | 'authorAvatar' | 'form', string>
+  Record<'title' | 'description' | 'authorName' | 'image' | 'authorAvatar' | 'form', string>
 >;
 
 export type PostFieldsInput = {
   title: string;
   description: string;
-  category: string;
   authorName: string;
 };
 
@@ -17,8 +16,7 @@ const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp', 'image/gif
 export function validatePostFields(input: PostFieldsInput): PostFieldErrors {
   const errors: PostFieldErrors = {};
   if (!input.title.trim()) errors.title = 'Title is required.';
-  if (!input.description.trim()) errors.description = 'Description is required.';
-  if (!input.category.trim()) errors.category = 'Category is required.';
+  if (!input.description.trim()) errors.description = 'Content is required.';
   if (!input.authorName.trim()) errors.authorName = 'Author name is required.';
   return errors;
 }

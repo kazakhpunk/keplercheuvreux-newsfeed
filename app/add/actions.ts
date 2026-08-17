@@ -15,7 +15,6 @@ export async function addPost(
   const values = {
     title: String(formData.get('title') ?? ''),
     description: String(formData.get('description') ?? ''),
-    category: String(formData.get('category') ?? ''),
     authorName: String(formData.get('authorName') ?? ''),
   };
 
@@ -25,15 +24,13 @@ export async function addPost(
   const image = imageEntry instanceof File && imageEntry.size > 0 ? imageEntry : null;
   const stockImageUrl = String(formData.get('stockImageUrl') ?? '').trim();
 
+  // An image is optional — a post with neither an upload nor a stock pick
+  // renders with a placeholder instead.
   let imageError: string | null = null;
   if (image) {
     imageError = validateImageFile(image);
-  } else if (stockImageUrl) {
-    if (!isKnownStockImageUrl(stockImageUrl)) {
-      imageError = 'Selected image is not valid.';
-    }
-  } else {
-    imageError = 'An image is required.';
+  } else if (stockImageUrl && !isKnownStockImageUrl(stockImageUrl)) {
+    imageError = 'Selected image is not valid.';
   }
   if (imageError) fieldErrors.image = imageError;
 
@@ -49,7 +46,7 @@ export async function addPost(
   }
 
   try {
-    let uploadedImageUrl: string;
+    let uploadedImageUrl: string | null;
     if (image) {
       const uploadedImage = await put(`posts/${Date.now()}-${image.name}`, image, {
         access: 'public',
@@ -57,7 +54,7 @@ export async function addPost(
       });
       uploadedImageUrl = uploadedImage.url;
     } else {
-      uploadedImageUrl = stockImageUrl;
+      uploadedImageUrl = stockImageUrl || null;
     }
 
     let avatarUrl: string | null = null;
@@ -72,7 +69,6 @@ export async function addPost(
     await createPost({
       title: values.title,
       description: values.description,
-      category: values.category,
       imageUrl: uploadedImageUrl,
       authorName: values.authorName,
       authorAvatarUrl: avatarUrl,

@@ -55,7 +55,11 @@ export function PostDetailModal({
         <button type="button" className="post-modal-close" aria-label="Close" onClick={onClose}>
           ×
         </button>
-        <img src={post.imageUrl} alt={post.title} className="post-modal-image" />
+        {post.imageUrl ? (
+          <img src={post.imageUrl} alt={post.title} className="post-modal-image" />
+        ) : (
+          <div className="post-modal-image post-image-placeholder" aria-hidden="true" />
+        )}
         <div className="post-modal-body">
           {isEditing ? (
             <>
@@ -72,7 +76,6 @@ export function PostDetailModal({
             </>
           ) : (
             <>
-              <span className="post-modal-tag">{post.category}</span>
               <h2 className="post-modal-title">{post.title}</h2>
               <p className="post-modal-description">{post.description}</p>
               <div className="post-card-author">

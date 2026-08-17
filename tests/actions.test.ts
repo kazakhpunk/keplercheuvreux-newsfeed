@@ -25,7 +25,6 @@ function buildFormData(
   const formData = new FormData();
   formData.set('title', overrides.title ?? 'Test Title');
   formData.set('description', overrides.description ?? 'Test description');
-  formData.set('category', overrides.category ?? 'News');
   formData.set('authorName', overrides.authorName ?? 'Jane Doe');
   if (withImage) {
     formData.set('image', new File(['fake-bytes'], 'photo.png', { type: 'image/png' }));
@@ -50,14 +49,18 @@ describe('addPost', () => {
     expect(createPostMock).not.toHaveBeenCalled();
   });
 
-  it('returns an image error and does not save when no image is provided', async () => {
+  it('creates the post with a null image when no image is provided', async () => {
+    createPostMock.mockResolvedValue({ id: 1 });
     const formData = buildFormData({}, false);
 
     const result = await addPost(initialAddPostState, formData);
 
-    expect(result.success).toBe(false);
-    expect(result.errors.image).toBe('An image is required.');
-    expect(createPostMock).not.toHaveBeenCalled();
+    expect(result.success).toBe(true);
+    expect(result.errors.image).toBeUndefined();
+    expect(putMock).not.toHaveBeenCalled();
+    expect(createPostMock).toHaveBeenCalledWith(
+      expect.objectContaining({ imageUrl: null })
+    );
   });
 
   it('uploads the image and creates the post on valid input', async () => {
@@ -73,7 +76,6 @@ describe('addPost', () => {
       expect.objectContaining({
         title: 'Test Title',
         description: 'Test description',
-        category: 'News',
         authorName: 'Jane Doe',
         imageUrl: 'https://blob.example.com/posts/photo.png',
         authorAvatarUrl: null,

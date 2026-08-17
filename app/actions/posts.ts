@@ -21,7 +21,6 @@ export async function editPost(
   const values = {
     title: String(formData.get('title') ?? ''),
     description: String(formData.get('description') ?? ''),
-    category: String(formData.get('category') ?? ''),
     authorName: String(formData.get('authorName') ?? ''),
   };
 

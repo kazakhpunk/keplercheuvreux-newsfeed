@@ -23,7 +23,11 @@ export function PostCard({ post, onSelect }: { post: Post; onSelect: (post: Post
         }
       }}
     >
-      <img src={post.imageUrl} alt={post.title} className="post-card-image" />
+      {post.imageUrl ? (
+        <img src={post.imageUrl} alt={post.title} className="post-card-image" />
+      ) : (
+        <div className="post-card-image post-image-placeholder" aria-hidden="true" />
+      )}
       <div className="post-card-body">
         <h2 className="post-card-title">{post.title}</h2>
         <p className="post-card-description">{post.description}</p>

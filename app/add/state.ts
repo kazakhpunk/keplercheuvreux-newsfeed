@@ -4,7 +4,6 @@ export type AddPostState = {
   values: {
     title: string;
     description: string;
-    category: string;
     authorName: string;
   };
 };
@@ -12,5 +11,5 @@ export type AddPostState = {
 export const initialAddPostState: AddPostState = {
   success: false,
   errors: {},
-  values: { title: '', description: '', category: '', authorName: '' },
+  values: { title: '', description: '', authorName: '' },
 };

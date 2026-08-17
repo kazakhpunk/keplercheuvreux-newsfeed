@@ -6,7 +6,6 @@ describe('validatePostFields', () => {
     const errors = validatePostFields({
       title: 'Title',
       description: 'Description',
-      category: 'News',
       authorName: 'Jane Doe',
     });
 
@@ -17,13 +16,12 @@ describe('validatePostFields', () => {
     const errors = validatePostFields({
       title: '',
       description: '   ',
-      category: 'News',
       authorName: 'Jane Doe',
     });
 
     expect(errors.title).toBe('Title is required.');
-    expect(errors.description).toBe('Description is required.');
-    expect(errors.category).toBeUndefined();
+    expect(errors.description).toBe('Content is required.');
+    expect(errors.authorName).toBeUndefined();
   });
 });
 
