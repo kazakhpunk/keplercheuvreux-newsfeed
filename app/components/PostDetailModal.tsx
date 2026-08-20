@@ -5,6 +5,7 @@ import type { Post } from '@/lib/posts';
 import { recordPostView } from '../actions/engagement';
 import { deletePost } from '../actions/posts';
 import { EditPostForm } from './EditPostForm';
+import { Markdown } from './Markdown';
 import { PostStats } from './PostStats';
 
 function formatDate(iso: string): string {
@@ -77,7 +78,7 @@ export function PostDetailModal({
           ) : (
             <>
               <h2 className="post-modal-title">{post.title}</h2>
-              <p className="post-modal-description">{post.description}</p>
+              <Markdown>{post.description}</Markdown>
               <div className="post-card-author">
                 <img
                   src={post.authorAvatarUrl ?? '/default-avatar.svg'}

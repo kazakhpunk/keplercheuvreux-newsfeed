@@ -60,6 +60,10 @@ export function EditPostForm({
       <label className="add-form-field">
         Content
         <textarea name="description" defaultValue={state.values.description} />
+        <span className="add-form-hint">
+          Markdown is supported: ## Heading, **bold**, - lists, [links](https://example.com),
+          ![image](url).
+        </span>
         {state.errors.description && (
           <span className="add-form-error">{state.errors.description}</span>
         )}

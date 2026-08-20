@@ -1,4 +1,5 @@
 import type { Post } from '@/lib/posts';
+import { toPlainText } from '@/lib/markdown';
 import { PostStats } from './PostStats';
 
 function formatDate(iso: string): string {
@@ -30,7 +31,7 @@ export function PostCard({ post, onSelect }: { post: Post; onSelect: (post: Post
       )}
       <div className="post-card-body">
         <h2 className="post-card-title">{post.title}</h2>
-        <p className="post-card-description">{post.description}</p>
+        <p className="post-card-description">{toPlainText(post.description)}</p>
         <div className="post-card-author">
           <img
             src={post.authorAvatarUrl ?? '/default-avatar.svg'}
