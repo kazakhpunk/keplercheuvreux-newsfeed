@@ -1,6 +1,10 @@
 import { getPosts } from '@/lib/posts';
 import { Feed } from './components/Feed';
 
+// The feed must reflect the database on every request: posts can change outside
+// the app (direct DB edits), which revalidatePath in the server actions misses.
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   let posts: Awaited<ReturnType<typeof getPosts>> = [];
   let loadError = false;

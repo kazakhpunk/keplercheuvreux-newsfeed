@@ -365,7 +365,7 @@ body {
 .post-modal-dialog {
   position: relative;
   width: 100%;
-  max-width: 640px;
+  max-width: 820px;
   max-height: 90vh;
   overflow-y: auto;
   background: #003366;
